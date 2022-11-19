@@ -1,0 +1,39 @@
+{
+	"name": "chakra-saas-template",
+	"version": "0.1.0",
+	"private": true,
+	"packageManager": "yarn@3.2.1",
+	"scripts": {
+		"dev": "next dev",
+		"build": "next build",
+		"start": "next start",
+		"lint": "next lint"
+	},
+	"dependencies": {
+		"@chakra-ui/icons": "^2.0.11",
+		"@chakra-ui/react": "^2.3.6",
+		"@chakra-ui/theme-tools": "^2.0.12",
+		"@clerk/clerk-react": "^4.4.2",
+		"@emotion/react": "^11.10.4",
+		"@emotion/styled": "^11.10.4",
+		"@saas-ui/app-shell": "^0.2.0",
+		"@saas-ui/clerk": "^1.2.2",
+		"@saas-ui/react": "latest",
+		"@saas-ui/sidebar": "^0.3.2",
+		"@uiball/loaders": "^1.2.6",
+		"framer-motion": "^7.5.3",
+		"next": "12.3.2",
+		"react": "18.2.0",
+		"react-dom": "18.2.0",
+		"recharts": "^2.1.16",
+		"zod": "^3.19.1"
+	},
+	"devDependencies": {
+		"@types/node": "18.11.9",
+		"@types/react": "18.0.25",
+		"@types/react-dom": "18.0.9",
+		"eslint": "8.27.0",
+		"eslint-config-next": "13.0.3",
+		"typescript": "4.8.4"
+	}
+}
