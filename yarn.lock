@@ -1232,48 +1232,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@clerk/clerk-react@npm:^4.4.2":
-  version: 4.4.2
-  resolution: "@clerk/clerk-react@npm:4.4.2"
-  dependencies:
-    "@clerk/shared": ^0.5.2
-    "@clerk/types": ^3.16.0
-    swr: ^1.3.0
-    tslib: ^2.3.1
-  peerDependencies:
-    react: ">=16"
-  checksum: 8f8683630b473e7f065558adb1018f52fed3ff200a67914140034e8288548b374e9369b1d179c80eba20233012635504d4a1a5cd51cffba266d74d9ccd76f7d7
-  languageName: node
-  linkType: hard
-
-"@clerk/shared@npm:^0.5.2":
-  version: 0.5.2
-  resolution: "@clerk/shared@npm:0.5.2"
-  peerDependencies:
-    "@testing-library/dom": ^8.19.0
-    "@testing-library/jest-dom": ^5.16.5
-    "@testing-library/react": ^13.4.0
-    "@testing-library/user-event": ^14.4.3
-    react: 18.2.0
-    react-dom: 18.2.0
-    react-test-renderer: ^18.2.0
-  checksum: 7a6684fddc89efb2c764ea8cd1bebd02b45117aef5b13512b86310007562b4215ac7b6d3631c92086b2b3abeace7c4c37a91a1b6f7cce3238db8726899f9cd4a
-  languageName: node
-  linkType: hard
-
 "@clerk/types@npm:^2.21.0":
   version: 2.21.0
   resolution: "@clerk/types@npm:2.21.0"
   checksum: 3fab948f8a06a070e160035e83c6c1e561f111680f4dfe33c9bcee140fcbee0a049e6577c199cb38318617b9b24cf623cb6b042fe34cc3688b34303efa63bd67
-  languageName: node
-  linkType: hard
-
-"@clerk/types@npm:^3.16.0":
-  version: 3.16.0
-  resolution: "@clerk/types@npm:3.16.0"
-  dependencies:
-    csstype: ^3.1.0
-  checksum: 5764175283310d709e25e2209ced3b03a05aab85158a140ddb87033808ab562229bdd01b44c4a6f97b310f25339da2cc8a35b0f0ff39678d7bb9a89afde26e5a
   languageName: node
   linkType: hard
 
@@ -2674,7 +2636,6 @@ __metadata:
     "@chakra-ui/icons": ^2.0.11
     "@chakra-ui/react": ^2.3.6
     "@chakra-ui/theme-tools": ^2.0.12
-    "@clerk/clerk-react": ^4.4.2
     "@emotion/react": ^11.10.4
     "@emotion/styled": ^11.10.4
     "@saas-ui/app-shell": ^0.2.0
@@ -2841,7 +2802,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"csstype@npm:^3.0.11, csstype@npm:^3.0.2, csstype@npm:^3.1.0":
+"csstype@npm:^3.0.11, csstype@npm:^3.0.2":
   version: 3.1.1
   resolution: "csstype@npm:3.1.1"
   checksum: 1f7b4f5fdd955b7444b18ebdddf3f5c699159f13e9cf8ac9027ae4a60ae226aef9bbb14a6e12ca7dba3358b007cee6354b116e720262867c398de6c955ea451d
@@ -5043,15 +5004,6 @@ __metadata:
   version: 1.0.0
   resolution: "supports-preserve-symlinks-flag@npm:1.0.0"
   checksum: 53b1e247e68e05db7b3808b99b892bd36fb096e6fba213a06da7fab22045e97597db425c724f2bbd6c99a3c295e1e73f3e4de78592289f38431049e1277ca0ae
-  languageName: node
-  linkType: hard
-
-"swr@npm:^1.3.0":
-  version: 1.3.0
-  resolution: "swr@npm:1.3.0"
-  peerDependencies:
-    react: ^16.11.0 || ^17.0.0 || ^18.0.0
-  checksum: e7a184f0d560e9c8be85c023cc8e65e56a88a6ed46f9394b301b07f838edca23d2e303685319a4fcd620b81d447a7bcb489c7fa0a752c259f91764903c690cdb
   languageName: node
   linkType: hard
 

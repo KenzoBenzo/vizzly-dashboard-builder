@@ -1,7 +1,5 @@
 import { Box, DarkMode, Spacer, Text, useColorMode } from "@chakra-ui/react";
-import { UserButton } from "@clerk/clerk-react";
 import { AppShell } from "@saas-ui/app-shell";
-import { useAuth } from "@saas-ui/react";
 import { Sidebar, SidebarSection, NavItem } from "@saas-ui/sidebar";
 import { useRouter } from "next/router";
 import { ReactNode } from "react";
@@ -11,20 +9,10 @@ import {
 	Settings01Icon,
 	SunIcon,
 } from "../atoms/icons";
-import { AuthenticationLayout } from "./authentication";
 
 export const DefaultLayout = ({ children }: { children: ReactNode }) => {
 	const router = useRouter();
 	const { colorMode, toggleColorMode } = useColorMode();
-	const { isAuthenticated, isLoading, isLoggingIn } = useAuth();
-
-	if (isLoading || isLoggingIn) {
-		return <div>Loading...</div>;
-	}
-
-	if (!isAuthenticated) {
-		return <AuthenticationLayout />;
-	}
 
 	return (
 		<AppShell
@@ -48,7 +36,6 @@ export const DefaultLayout = ({ children }: { children: ReactNode }) => {
 							<Text fontWeight='bold' color='chakra-body-text'>
 								Hello world
 							</Text>
-							<UserButton afterSignOutUrl='/' />
 						</SidebarSection>
 						<SidebarSection>
 							<NavItem

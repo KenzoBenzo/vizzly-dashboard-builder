@@ -7,11 +7,9 @@ import {
 	StatNumber,
 } from "@chakra-ui/react";
 import Head from "next/head";
-import { Card, useAuth } from "@saas-ui/react";
+import { Card } from "@saas-ui/react";
 
 export default function Home() {
-	const { user } = useAuth();
-
 	return (
 		<>
 			<Head>
@@ -86,11 +84,6 @@ export default function Home() {
 						</Stat>
 					</Card>
 				</Stack>
-				<Card w='full' p={3}>
-					<pre>
-						<code>{JSON.stringify(user, null, 2)}</code>
-					</pre>
-				</Card>
 			</Stack>
 		</>
 	);
