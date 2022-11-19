@@ -2,7 +2,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Local development
 
-First, run the development server:
+First install dependencies and then run the development server with:
 
 ```bash
 yarn && yarn dev
