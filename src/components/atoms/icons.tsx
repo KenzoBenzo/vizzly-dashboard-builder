@@ -114,3 +114,47 @@ export const GoogleIcon = createIcon({
 		/>
 	),
 });
+
+export const ChevronLeftDoubleIcon = createIcon({
+	displayName: "ChevronLeftDoubleIcon",
+	viewBox: "0 0 24 24",
+	path: (
+		<path
+			d='M18 17L13 12L18 7M11 17L6 12L11 7'
+			stroke='currentColor'
+			fill='none'
+			strokeWidth='2'
+			strokeLinecap='round'
+			strokeLinejoin='round'
+		/>
+	),
+});
+
+export const ChevronRightDoubleIcon = createIcon({
+	displayName: "ChevronRightDoubleIcon",
+	viewBox: "0 0 24 24",
+	path: (
+		<path
+			d='M6 17L11 12L6 7M13 17L18 12L13 7'
+			stroke='currentcolor'
+			fill='none'
+			strokeWidth='2'
+			strokeLinecap='round'
+			strokeLinejoin='round'
+		/>
+	),
+});
+
+export const PlusIcon = createIcon({
+	displayName: "PlusIcon",
+	viewBox: "0 0 24 24",
+	path: (
+		<path
+			d='M12 5V19M5 12H19'
+			stroke='currentColor'
+			strokeWidth='2'
+			strokeLinecap='round'
+			strokeLinejoin='round'
+		/>
+	),
+});
