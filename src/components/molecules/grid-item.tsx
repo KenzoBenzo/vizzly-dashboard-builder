@@ -20,7 +20,7 @@ export const GridItem = ({
 	return (
 		<ChakraGridItem
 			as={Card}
-			isHoverable
+			isHoverable={!isSelected}
 			colSpan={colSpan}
 			variant={type == "empty" ? "outline" : "shadow"}
 			borderColor={isSelected ? "primary.500" : "inherit"}

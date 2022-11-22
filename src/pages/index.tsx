@@ -1,20 +1,9 @@
-import { Center, Grid } from "@chakra-ui/react";
-import { Button } from "@saas-ui/react";
+import { Grid } from "@chakra-ui/react";
 import {
 	LineChart,
-	Line,
 	BarChart,
-	Bar,
-	CartesianGrid,
-	Legend,
-	Tooltip,
-	XAxis,
-	YAxis,
-	Brush,
-	ResponsiveContainer,
-	Rectangle,
-} from "recharts";
-import { PlusIcon } from "../components/atoms/icons";
+	Empty,
+} from "../components/molecules/chart-blocks";
 import { GridItem } from "../components/molecules/grid-item";
 import { useEditorContext } from "../components/utils/editor-context";
 
@@ -43,11 +32,7 @@ export default function Home() {
 									}
 									{...item}
 								>
-									<Center minH={350} w='100%'>
-										<Button leftIcon={<PlusIcon />} variant='ghost'>
-											Add widget
-										</Button>
-									</Center>
+									<Empty />
 								</GridItem>
 							);
 						case "line":
@@ -66,32 +51,7 @@ export default function Home() {
 									}
 									{...item}
 								>
-									<ResponsiveContainer width='100%' height={290}>
-										<LineChart
-											data={item.data}
-											margin={{
-												top: 5,
-												right: 30,
-												left: 20,
-												bottom: 5,
-											}}
-										>
-											<CartesianGrid
-												strokeDasharray='3 3' /*stroke='#8884d8'*/
-											/>
-											<XAxis dataKey={item.xAxisDataKey} />
-											<YAxis />
-											<Tooltip />
-											<Legend />
-											<Line
-												type='monotoneX'
-												dataKey={item.yAxisDataKey}
-												stroke='#8884d8'
-												dot={false}
-												strokeWidth={2}
-											/>
-										</LineChart>
-									</ResponsiveContainer>
+									<LineChart {...item} />
 								</GridItem>
 							);
 						case "bar":
@@ -110,28 +70,7 @@ export default function Home() {
 									}
 									{...item}
 								>
-									<ResponsiveContainer width='100%' height={290}>
-										<BarChart
-											data={item.data}
-											margin={{
-												top: 5,
-												right: 30,
-												left: 20,
-												bottom: 5,
-											}}
-										>
-											{/* <CartesianGrid strokeDasharray='3 3' /> */}
-											<XAxis dataKey={item.xAxisDataKey} />
-											<YAxis />
-											<Tooltip cursor={{ fill: "transparent" }} />
-											<Legend />
-											<Bar
-												shape={<Rectangle radius={[8, 8, 0, 0]} />}
-												dataKey={item.yAxisDataKey}
-												fill='#8884d8'
-											/>
-										</BarChart>
-									</ResponsiveContainer>
+									<BarChart {...item} />
 								</GridItem>
 							);
 					}

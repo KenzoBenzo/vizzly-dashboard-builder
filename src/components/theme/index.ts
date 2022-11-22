@@ -4,6 +4,13 @@ import { theme as baseTheme } from "@saas-ui/react";
 export const customTheme = extendTheme(
 	{
 		components: {
+			Checkbox: {
+				baseStyle: {
+					control: {
+						borderRadius: "4px",
+					},
+				},
+			},
 			NavItem: {
 				baseStyle: {
 					item: {

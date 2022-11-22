@@ -1,16 +1,18 @@
 import { useToken } from "@chakra-ui/react";
+import React from "react";
 import {
 	CartesianGrid,
 	Legend,
-	Line,
-	LineChart as RechartLine,
+	Bar,
+	BarChart as RechartBar,
 	ResponsiveContainer,
 	Tooltip,
 	XAxis,
 	YAxis,
+	Rectangle,
 } from "recharts";
 
-export const LineChart = ({
+export const BarChart = ({
 	data,
 	xAxisDataKey,
 	yAxisDataKey,
@@ -22,7 +24,7 @@ export const LineChart = ({
 	const [primary300] = useToken("colors", ["primary.300"]);
 	return (
 		<ResponsiveContainer width='100%' height={290}>
-			<RechartLine
+			<RechartBar
 				data={data}
 				margin={{
 					top: 5,
@@ -40,16 +42,14 @@ export const LineChart = ({
 					stroke='var(--chakra-colors-chakra-placeholder-color)'
 				/>
 				<YAxis stroke='var(--chakra-colors-chakra-placeholder-color)' />
-				<Tooltip />
+				<Tooltip cursor={{ fill: "transparent" }} />
 				<Legend />
-				<Line
-					type='monotoneX'
+				<Bar
 					dataKey={yAxisDataKey}
-					stroke={primary300}
-					dot={false}
-					strokeWidth={2}
+					fill={primary300}
+					shape={<Rectangle radius={[8, 8, 0, 0]} />}
 				/>
-			</RechartLine>
+			</RechartBar>
 		</ResponsiveContainer>
 	);
 };
