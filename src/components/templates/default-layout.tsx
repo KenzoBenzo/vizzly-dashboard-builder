@@ -51,7 +51,7 @@ export const DefaultLayout = ({ children }: { children: ReactNode }) => {
 							onClick={onToggle}
 							label={`${isOpen ? "Collapse" : "Expand"} Sidebar`}
 						/>
-						<Divider mt={2} mb={4} />
+						<Divider mt={2} />
 					</SidebarSection>
 
 					<SidebarSection display={isOpen ? "block" : "none"}>
