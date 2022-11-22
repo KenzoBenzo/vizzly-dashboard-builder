@@ -1,5 +1,4 @@
 import {
-	Box,
 	Center,
 	Grid,
 	GridItem as ChakraGridItem,
@@ -22,7 +21,7 @@ import {
 	Rectangle,
 } from "recharts";
 import { PlusIcon } from "../components/atoms/icons";
-const dataSet = require("../../public/us-sales.json");
+import { useEditorContext } from "../components/utils/editor-context";
 
 const GridItem = ({
 	type,
@@ -55,51 +54,12 @@ const GridItem = ({
 	);
 };
 
-interface CommonProps {
-	colSpan?: ResponsiveValue<number | "auto"> | undefined;
-	title?: string;
-}
-
-type ConditionalProps =
-	| {
-			type: "line" | "bar";
-			xAxisDataKey: string;
-			yAxisDataKey: string;
-			dataSource: string;
-			data: any[];
-	  }
-	| {
-			type: "empty";
-	  };
-
-export type DashboardItem = CommonProps & ConditionalProps;
-
 export default function Home() {
-	const [selectedItem, setSelectedItem] = useState<DashboardItem | null>();
-	const dashboardItems: DashboardItem[] = [
-		{
-			type: "line",
-			colSpan: 2,
-			dataSource: "us-sales.json",
-			data: dataSet.slice(0, 19),
-			xAxisDataKey: "order_date",
-			yAxisDataKey: "value",
-		},
-		{ type: "empty", colSpan: 2 },
-		{
-			type: "bar",
-			colSpan: 4,
-			dataSource: "us-sales.json",
-			data: dataSet.slice(0, 19),
-			xAxisDataKey: "order_date",
-			yAxisDataKey: "value",
-		},
-		{ type: "empty" },
-	];
+	const { globalColumns, dashboardItems } = useEditorContext();
 
 	return (
 		<>
-			<Grid templateColumns='repeat(4, 1fr)' gap={4}>
+			<Grid templateColumns={`repeat(${globalColumns}, 1fr)`} gap={4}>
 				{dashboardItems.map((item, index) => {
 					switch (item.type) {
 						case "empty":
@@ -125,7 +85,9 @@ export default function Home() {
 												bottom: 5,
 											}}
 										>
-											<CartesianGrid strokeDasharray='3 3' stroke='#8884d8' />
+											<CartesianGrid
+												strokeDasharray='3 3' /*stroke='#8884d8'*/
+											/>
 											<XAxis dataKey={item.xAxisDataKey} />
 											<YAxis />
 											<Tooltip />
