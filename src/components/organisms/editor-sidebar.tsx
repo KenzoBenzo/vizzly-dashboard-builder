@@ -14,6 +14,9 @@ import {
 	Input,
 	Select,
 	Checkbox,
+	InputGroup,
+	InputLeftElement,
+	Badge,
 } from "@chakra-ui/react";
 import { Button, Property, PropertyList } from "@saas-ui/react";
 import { Sidebar, SidebarSection, NavItem } from "@saas-ui/sidebar";
@@ -31,8 +34,14 @@ export const EditorSidebar = () => {
 	const { isOpen, onToggle } = useDisclosure({
 		defaultIsOpen: true,
 	});
-	const { itemSelected, setItemSelected, globalColumns, setGlobalColumns } =
-		useEditorContext();
+	const {
+		itemSelected,
+		setItemSelected,
+		globalColumns,
+		setGlobalColumns,
+		dashboardItems,
+		setDashboardItems,
+	} = useEditorContext();
 	return (
 		<Sidebar
 			position='sticky'
@@ -147,6 +156,22 @@ export const EditorSidebar = () => {
 							{itemSelected.type !== "empty" && (
 								<>
 									<Property
+										label='Slice data'
+										value={
+											<NumberInput
+												size='xs'
+												value={itemSelected.sliceData}
+												min={0}
+											>
+												<NumberInputField />
+												<NumberInputStepper>
+													<NumberIncrementStepper />
+													<NumberDecrementStepper />
+												</NumberInputStepper>
+											</NumberInput>
+										}
+									/>
+									<Property
 										label='Data source'
 										value={
 											<Select
@@ -162,11 +187,14 @@ export const EditorSidebar = () => {
 										label='X axis'
 										value={
 											<Select size='xs' value={itemSelected?.xAxisDataKey}>
-												{Object.keys(dataSet[0])
-													.filter((key) => key !== itemSelected.yAxisDataKey)
-													.map((dataKey) => (
-														<option key={dataKey}>{dataKey}</option>
-													))}
+												{Object.keys(dataSet[0]).map((dataKey) => (
+													<option
+														key={dataKey}
+														disabled={dataKey == itemSelected.yAxisDataKey}
+													>
+														{dataKey}
+													</option>
+												))}
 											</Select>
 										}
 									/>
@@ -174,11 +202,14 @@ export const EditorSidebar = () => {
 										label='Y axis'
 										value={
 											<Select size='xs' value={itemSelected?.yAxisDataKey}>
-												{Object.keys(dataSet[0])
-													.filter((key) => key !== itemSelected.xAxisDataKey)
-													.map((dataKey) => (
-														<option key={dataKey}>{dataKey}</option>
-													))}
+												{Object.keys(dataSet[0]).map((dataKey) => (
+													<option
+														key={dataKey}
+														disabled={dataKey == itemSelected.xAxisDataKey}
+													>
+														{dataKey}
+													</option>
+												))}
 											</Select>
 										}
 									/>
@@ -188,31 +219,57 @@ export const EditorSidebar = () => {
 
 									<Property
 										label='Cartesian grid'
-										value={<Checkbox>Applied</Checkbox>}
+										value={
+											<Checkbox
+												isChecked={itemSelected.features?.cartesianGrid}
+											>
+												Applied
+											</Checkbox>
+										}
 									/>
 									<Property
 										label='Tooltip'
-										value={<Checkbox>Applied</Checkbox>}
+										value={
+											<Checkbox isChecked={itemSelected.features?.tooltip}>
+												Applied
+											</Checkbox>
+										}
 									/>
 									<Property
 										label='Legend'
-										value={<Checkbox>Applied</Checkbox>}
+										value={
+											<Checkbox isChecked={itemSelected.features?.legend}>
+												Applied
+											</Checkbox>
+										}
 									/>
 									<Property
 										label='Brush'
-										value={<Checkbox>Applied</Checkbox>}
+										value={
+											<Checkbox isChecked={itemSelected.features?.brush}>
+												Applied
+											</Checkbox>
+										}
 									/>
 									{itemSelected.type === "line" && (
 										<Property
 											label='Dots'
-											value={<Checkbox>Applied</Checkbox>}
+											value={
+												<Checkbox isChecked={itemSelected.features?.dots}>
+													Applied
+												</Checkbox>
+											}
 										/>
 									)}
 									{itemSelected.type === "bar" && (
 										<Property
 											label='Border radius'
 											value={
-												<NumberInput size='xs' min={0}>
+												<NumberInput
+													size='xs'
+													value={itemSelected.features?.borderRadius}
+													min={0}
+												>
 													<NumberInputField />
 													<NumberInputStepper>
 														<NumberIncrementStepper />
@@ -223,10 +280,40 @@ export const EditorSidebar = () => {
 										/>
 									)}
 									{/* TODO: add some input level validation for acceptable color strings */}
-									<Property label='Color' value={<Input size='xs' />} />
+									<Property
+										label='Color'
+										value={
+											<InputGroup size='xs'>
+												<InputLeftElement>
+													<Badge
+														bg={itemSelected.features?.color}
+														boxSize='2'
+														borderRadius='full'
+													/>
+												</InputLeftElement>
+												<Input value={itemSelected.features?.color} />
+											</InputGroup>
+										}
+									/>
 								</>
 							)}
 						</PropertyList>
+						<Button
+							w='full'
+							colorScheme='red'
+							variant='subtle'
+							mt={8}
+							onClick={() => {
+								setItemSelected(undefined);
+								setDashboardItems(
+									[...dashboardItems].filter((item) => {
+										return item.id !== itemSelected?.id;
+									})
+								);
+							}}
+						>
+							Delete widget
+						</Button>
 					</>
 				)}
 			</SidebarSection>

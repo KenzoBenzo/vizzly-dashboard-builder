@@ -1,5 +1,6 @@
 import { useToken } from "@chakra-ui/react";
 import {
+	Brush,
 	CartesianGrid,
 	Legend,
 	Line,
@@ -12,18 +13,29 @@ import {
 
 export const LineChart = ({
 	data,
+	sliceData,
 	xAxisDataKey,
 	yAxisDataKey,
+	features,
 }: {
 	data: any[];
+	sliceData?: number;
 	xAxisDataKey: string;
 	yAxisDataKey: string;
+	features?: {
+		cartesianGrid?: boolean;
+		legend?: boolean;
+		tooltip?: boolean;
+		brush?: boolean;
+		dots?: boolean;
+		color?: string;
+	};
 }) => {
 	const [primary300] = useToken("colors", ["primary.300"]);
 	return (
 		<ResponsiveContainer width='100%' height={290}>
 			<RechartLine
-				data={data}
+				data={sliceData ? data.slice(0, sliceData) : data}
 				margin={{
 					top: 5,
 					right: 30,
@@ -31,22 +43,25 @@ export const LineChart = ({
 					bottom: 5,
 				}}
 			>
-				<CartesianGrid
-					strokeDasharray='3 3'
-					stroke='var(--chakra-colors-chakra-border-color)'
-				/>
+				{features?.cartesianGrid && (
+					<CartesianGrid
+						strokeDasharray='3 3'
+						stroke='var(--chakra-colors-chakra-border-color)'
+					/>
+				)}
 				<XAxis
 					dataKey={xAxisDataKey}
 					stroke='var(--chakra-colors-chakra-placeholder-color)'
 				/>
 				<YAxis stroke='var(--chakra-colors-chakra-placeholder-color)' />
-				<Tooltip />
-				<Legend />
+				{features?.tooltip && <Tooltip />}
+				{features?.legend && <Legend />}
+				{features?.brush && <Brush />}
 				<Line
 					type='monotoneX'
 					dataKey={yAxisDataKey}
-					stroke={primary300}
-					dot={false}
+					stroke={features?.color || primary300}
+					dot={features?.dots || false}
 					strokeWidth={2}
 				/>
 			</RechartLine>

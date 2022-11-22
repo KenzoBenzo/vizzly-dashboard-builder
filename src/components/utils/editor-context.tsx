@@ -1,4 +1,4 @@
-import { ResponsiveValue } from "@chakra-ui/react";
+import { ResponsiveValue, useToken } from "@chakra-ui/react";
 import {
 	createContext,
 	Dispatch,
@@ -10,6 +10,7 @@ import {
 const dataSet = require("../../../public/us-sales.json");
 
 interface CommonProps {
+	id: number;
 	colSpan?: ResponsiveValue<number | "auto"> | undefined;
 	title?: string;
 }
@@ -21,6 +22,7 @@ type ConditionalProps =
 			yAxisDataKey: string;
 			dataSource: string;
 			data: any[];
+			sliceData?: number;
 			features?: {
 				cartesianGrid?: boolean;
 				legend?: boolean;
@@ -59,27 +61,48 @@ export const useEditorContext = () => {
 };
 
 export function EditorContextProvider({ children }: { children: ReactNode }) {
+	const [primary500] = useToken("colors", ["primary.500"]);
 	const [itemSelected, setItemSelected] = useState<DashboardItem>();
 	const [globalColumns, setGlobalColumns] = useState(4);
 	const [dashboardItems, setDashboardItems] = useState<DashboardItem[]>([
 		{
+			id: 0,
 			type: "line",
 			colSpan: 2,
 			dataSource: "us-sales.json",
-			data: dataSet.slice(0, 19),
+			data: dataSet,
+			sliceData: 19,
 			xAxisDataKey: "order_date",
 			yAxisDataKey: "value",
+			features: {
+				cartesianGrid: true,
+				legend: true,
+				tooltip: true,
+				dots: false,
+				brush: false,
+				color: primary500,
+			},
 		},
-		{ type: "empty", colSpan: 2 },
+		{ id: 1, type: "empty", colSpan: 2 },
 		{
+			id: 2,
 			type: "bar",
 			colSpan: 4,
 			dataSource: "us-sales.json",
-			data: dataSet.slice(0, 19),
+			data: dataSet,
+			sliceData: 19,
 			xAxisDataKey: "order_date",
 			yAxisDataKey: "value",
+			features: {
+				cartesianGrid: true,
+				legend: true,
+				tooltip: true,
+				brush: false,
+				borderRadius: 8,
+				color: primary500,
+			},
 		},
-		{ type: "empty" },
+		{ id: 3, type: "empty" },
 	]);
 
 	const providerValue: EditorContextType = {
