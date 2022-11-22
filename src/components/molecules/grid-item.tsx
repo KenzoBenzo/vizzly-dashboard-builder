@@ -8,12 +8,14 @@ export const GridItem = ({
 	isSelected = false,
 	colSpan,
 	children,
+	onClick,
 }: {
 	type: "empty" | "line" | "bar";
 	title?: string;
 	isSelected?: boolean;
 	colSpan?: ResponsiveValue<number | "auto"> | undefined;
 	children: ReactNode;
+	onClick?: () => void;
 }) => {
 	return (
 		<ChakraGridItem
@@ -22,6 +24,7 @@ export const GridItem = ({
 			colSpan={colSpan}
 			variant={type == "empty" ? "outline" : "shadow"}
 			borderColor={isSelected ? "primary.500" : "inherit"}
+			onClick={onClick}
 		>
 			{type !== "empty" && (
 				<CardHeader>

@@ -1,4 +1,4 @@
-import { Center, Grid, ResponsiveValue } from "@chakra-ui/react";
+import { Center, Grid } from "@chakra-ui/react";
 import { Button } from "@saas-ui/react";
 import {
 	LineChart,
@@ -19,7 +19,8 @@ import { GridItem } from "../components/molecules/grid-item";
 import { useEditorContext } from "../components/utils/editor-context";
 
 export default function Home() {
-	const { globalColumns, dashboardItems } = useEditorContext();
+	const { globalColumns, dashboardItems, itemSelected, setItemSelected } =
+		useEditorContext();
 
 	return (
 		<>
@@ -28,7 +29,20 @@ export default function Home() {
 					switch (item.type) {
 						case "empty":
 							return (
-								<GridItem key={index} {...item}>
+								<GridItem
+									key={index}
+									onClick={() => setItemSelected(item)}
+									isSelected={
+										itemSelected != undefined &&
+										dashboardItems.findIndex(
+											(element, index, array) =>
+												element.type === itemSelected?.type &&
+												element.title === itemSelected?.title &&
+												element.colSpan === itemSelected?.colSpan
+										) === index
+									}
+									{...item}
+								>
 									<Center minH={350} w='100%'>
 										<Button leftIcon={<PlusIcon />} variant='ghost'>
 											Add widget
@@ -38,7 +52,20 @@ export default function Home() {
 							);
 						case "line":
 							return (
-								<GridItem key={index} {...item}>
+								<GridItem
+									key={index}
+									onClick={() => setItemSelected(item)}
+									isSelected={
+										itemSelected != undefined &&
+										dashboardItems.findIndex(
+											(element, index, array) =>
+												element.type === itemSelected?.type &&
+												element.title === itemSelected?.title &&
+												element.colSpan === itemSelected?.colSpan
+										) === index
+									}
+									{...item}
+								>
 									<ResponsiveContainer width='100%' height={290}>
 										<LineChart
 											data={item.data}
@@ -69,7 +96,20 @@ export default function Home() {
 							);
 						case "bar":
 							return (
-								<GridItem key={index} {...item}>
+								<GridItem
+									key={index}
+									onClick={() => setItemSelected(item)}
+									isSelected={
+										itemSelected != undefined &&
+										dashboardItems.findIndex(
+											(element, index, array) =>
+												element.type === itemSelected?.type &&
+												element.title === itemSelected?.title &&
+												element.colSpan === itemSelected?.colSpan
+										) === index
+									}
+									{...item}
+								>
 									<ResponsiveContainer width='100%' height={290}>
 										<BarChart
 											data={item.data}

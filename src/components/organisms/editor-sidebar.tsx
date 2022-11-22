@@ -10,13 +10,16 @@ import {
 	Text,
 	useColorMode,
 	useDisclosure,
+	IconButton,
+	Flex,
 } from "@chakra-ui/react";
-import { Property } from "@saas-ui/react";
-import { Sidebar, SidebarSection, NavItem } from "@saas-ui/sidebar";
+import { Button, Property, PropertyList } from "@saas-ui/react";
+import { Sidebar, SidebarSection, NavItem, Nav } from "@saas-ui/sidebar";
 import {
 	ChevronRightDoubleIcon,
 	ChevronLeftDoubleIcon,
 	MoonStarIcon,
+	XCloseIcon,
 } from "../atoms/icons";
 import { useEditorContext } from "../utils/editor-context";
 
@@ -40,11 +43,26 @@ export const EditorSidebar = () => {
 			minWidth='auto'
 		>
 			<SidebarSection>
-				<NavItem
-					icon={isOpen ? <ChevronRightDoubleIcon /> : <ChevronLeftDoubleIcon />}
-					onClick={onToggle}
-					label={`${isOpen ? "Collapse" : "Expand"} Sidebar`}
-				/>
+				<Flex w='full' justify='space-between' align='center' gap={4}>
+					<NavItem
+						icon={
+							isOpen ? <ChevronRightDoubleIcon /> : <ChevronLeftDoubleIcon />
+						}
+						onClick={onToggle}
+						label={`${isOpen ? "Collapse" : "Expand"} Sidebar`}
+						w='full'
+					/>
+					<Button
+						leftIcon={<XCloseIcon />}
+						title='close button'
+						aria-label='close button'
+						iconSpacing={0}
+						size='xs'
+						variant='ghost'
+						display={isOpen ? "block" : "none"}
+						onClick={() => setItemSelected(undefined)}
+					/>
+				</Flex>
 				<Divider mt={2} />
 			</SidebarSection>
 
@@ -75,7 +93,26 @@ export const EditorSidebar = () => {
 				<Text fontWeight='bold' fontSize='sm' mb={2}>
 					Component settings
 				</Text>
-				<Text color='muted'>Select a component on the dashboard to edit.</Text>
+				{!itemSelected ? (
+					<Text color='muted'>
+						Select a component on the dashboard to edit.
+					</Text>
+				) : (
+					<>
+						<PropertyList>
+							<Property
+								label='Title'
+								labelWidth='150px'
+								value={itemSelected.title}
+							/>
+							<Property
+								label='Type'
+								labelWidth='150px'
+								value={itemSelected.type}
+							/>
+						</PropertyList>
+					</>
+				)}
 			</SidebarSection>
 			<Spacer />
 			<SidebarSection>

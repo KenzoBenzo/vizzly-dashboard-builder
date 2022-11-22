@@ -158,3 +158,18 @@ export const PlusIcon = createIcon({
 		/>
 	),
 });
+
+export const XCloseIcon = createIcon({
+	displayName: "XCloseIcon",
+	viewBox: "0 0 14 14",
+	path: (
+		<path
+			d='M13 1L1 13M1 1L13 13'
+			stroke='currentColor'
+			fill='none'
+			strokeWidth='2'
+			strokeLinecap='round'
+			strokeLinejoin='round'
+		/>
+	),
+});
