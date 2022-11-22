@@ -14,67 +14,22 @@ export default function Home() {
 	return (
 		<>
 			<Grid templateColumns={`repeat(${globalColumns}, 1fr)`} gap={4}>
-				{dashboardItems.map((item, index) => {
-					switch (item.type) {
-						case "empty":
-							return (
-								<GridItem
-									key={index}
-									onClick={() => setItemSelected(item)}
-									isSelected={
-										itemSelected != undefined &&
-										dashboardItems.findIndex(
-											(element, index, array) =>
-												element.type === itemSelected?.type &&
-												element.title === itemSelected?.title &&
-												element.colSpan === itemSelected?.colSpan
-										) === index
-									}
-									{...item}
-								>
-									<Empty />
-								</GridItem>
-							);
-						case "line":
-							return (
-								<GridItem
-									key={index}
-									onClick={() => setItemSelected(item)}
-									isSelected={
-										itemSelected != undefined &&
-										dashboardItems.findIndex(
-											(element, index, array) =>
-												element.type === itemSelected?.type &&
-												element.title === itemSelected?.title &&
-												element.colSpan === itemSelected?.colSpan
-										) === index
-									}
-									{...item}
-								>
-									<LineChart {...item} />
-								</GridItem>
-							);
-						case "bar":
-							return (
-								<GridItem
-									key={index}
-									onClick={() => setItemSelected(item)}
-									isSelected={
-										itemSelected != undefined &&
-										dashboardItems.findIndex(
-											(element, index, array) =>
-												element.type === itemSelected?.type &&
-												element.title === itemSelected?.title &&
-												element.colSpan === itemSelected?.colSpan
-										) === index
-									}
-									{...item}
-								>
-									<BarChart {...item} />
-								</GridItem>
-							);
-					}
-				})}
+				{dashboardItems.map((item) => (
+					<GridItem
+						key={item.id}
+						onClick={() => setItemSelected(item)}
+						isSelected={item.id == itemSelected?.id}
+						{...item}
+					>
+						{item.type === "empty" ? (
+							<Empty />
+						) : item.type === "line" ? (
+							<LineChart {...item} />
+						) : item.type === "bar" ? (
+							<BarChart {...item} />
+						) : null}
+					</GridItem>
+				))}
 			</Grid>
 		</>
 	);
