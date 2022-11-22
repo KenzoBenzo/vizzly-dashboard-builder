@@ -1,11 +1,5 @@
-import {
-	Center,
-	Grid,
-	GridItem as ChakraGridItem,
-	ResponsiveValue,
-} from "@chakra-ui/react";
-import { Button, Card, CardBody, CardHeader, CardTitle } from "@saas-ui/react";
-import { ReactNode, useState } from "react";
+import { Center, Grid, ResponsiveValue } from "@chakra-ui/react";
+import { Button } from "@saas-ui/react";
 import {
 	LineChart,
 	Line,
@@ -21,38 +15,8 @@ import {
 	Rectangle,
 } from "recharts";
 import { PlusIcon } from "../components/atoms/icons";
+import { GridItem } from "../components/molecules/grid-item";
 import { useEditorContext } from "../components/utils/editor-context";
-
-const GridItem = ({
-	type,
-	title = "Auto-generated ✨",
-	isSelected = false,
-	colSpan,
-	children,
-}: {
-	type: "empty" | "line" | "bar";
-	title?: string;
-	isSelected?: boolean;
-	colSpan?: ResponsiveValue<number | "auto"> | undefined;
-	children: ReactNode;
-}) => {
-	return (
-		<ChakraGridItem
-			as={Card}
-			isHoverable
-			colSpan={colSpan}
-			variant={type == "empty" ? "outline" : "shadow"}
-			borderColor={isSelected ? "primary.500" : "inherit"}
-		>
-			{type !== "empty" && (
-				<CardHeader>
-					<CardTitle fontSize='xl'>{title}</CardTitle>
-				</CardHeader>
-			)}
-			<CardBody>{children}</CardBody>
-		</ChakraGridItem>
-	);
-};
 
 export default function Home() {
 	const { globalColumns, dashboardItems } = useEditorContext();
