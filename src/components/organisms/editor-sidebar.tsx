@@ -10,11 +10,13 @@ import {
 	Text,
 	useColorMode,
 	useDisclosure,
-	IconButton,
 	Flex,
+	Input,
+	Select,
+	Checkbox,
 } from "@chakra-ui/react";
 import { Button, Property, PropertyList } from "@saas-ui/react";
-import { Sidebar, SidebarSection, NavItem, Nav } from "@saas-ui/sidebar";
+import { Sidebar, SidebarSection, NavItem } from "@saas-ui/sidebar";
 import {
 	ChevronRightDoubleIcon,
 	ChevronLeftDoubleIcon,
@@ -22,6 +24,7 @@ import {
 	XCloseIcon,
 } from "../atoms/icons";
 import { useEditorContext } from "../utils/editor-context";
+const dataSet = require("../../../public/us-sales.json");
 
 export const EditorSidebar = () => {
 	const { colorMode, toggleColorMode } = useColorMode();
@@ -71,8 +74,7 @@ export const EditorSidebar = () => {
 					General
 				</Text>
 				<Property
-					label='Number of columns'
-					labelWidth='150px'
+					label='Columns'
 					value={
 						<NumberInput
 							size='sm'
@@ -102,14 +104,128 @@ export const EditorSidebar = () => {
 						<PropertyList>
 							<Property
 								label='Title'
-								labelWidth='150px'
-								value={itemSelected.title}
+								value={
+									<Input
+										size='sm'
+										w='full'
+										value={itemSelected?.title || "Auto-generated ✨"}
+									/>
+								}
 							/>
 							<Property
 								label='Type'
-								labelWidth='150px'
-								value={itemSelected.type}
+								value={
+									<Select size='sm' value={itemSelected.type}>
+										<option value='empty'>Empty</option>
+										<option value='line'>Line Chart</option>
+										<option value='bar'>Bar Chart</option>
+									</Select>
+								}
 							/>
+							<Property
+								label='Column span'
+								value={
+									<NumberInput
+										size='sm'
+										// @ts-expect-error TODO: coerce column type to number type
+										value={
+											itemSelected?.colSpan == "auto" ||
+											itemSelected?.colSpan == undefined
+												? 1
+												: itemSelected?.colSpan
+										}
+										min={1}
+									>
+										<NumberInputField />
+										<NumberInputStepper>
+											<NumberIncrementStepper />
+											<NumberDecrementStepper />
+										</NumberInputStepper>
+									</NumberInput>
+								}
+							/>
+							{itemSelected.type !== "empty" && (
+								<>
+									<Property
+										label='Data source'
+										value={
+											<Select
+												size='sm'
+												value={itemSelected?.dataSource}
+												isDisabled
+											>
+												<option value='us-sales.json'>us-sales.json</option>
+											</Select>
+										}
+									/>
+									<Property
+										label='X axis'
+										value={
+											<Select size='sm' value={itemSelected?.xAxisDataKey}>
+												{Object.keys(dataSet[0])
+													.filter((key) => key !== itemSelected.yAxisDataKey)
+													.map((dataKey) => (
+														<option key={dataKey}>{dataKey}</option>
+													))}
+											</Select>
+										}
+									/>
+									<Property
+										label='Y axis'
+										value={
+											<Select size='sm' value={itemSelected?.yAxisDataKey}>
+												{Object.keys(dataSet[0])
+													.filter((key) => key !== itemSelected.xAxisDataKey)
+													.map((dataKey) => (
+														<option key={dataKey}>{dataKey}</option>
+													))}
+											</Select>
+										}
+									/>
+									<Text fontWeight='bold' fontSize='sm' mt={8} mb={2}>
+										Chart features
+									</Text>
+
+									<Property
+										label='Cartesian grid'
+										value={<Checkbox>Applied</Checkbox>}
+									/>
+									<Property
+										label='Tooltip'
+										value={<Checkbox>Applied</Checkbox>}
+									/>
+									<Property
+										label='Legend'
+										value={<Checkbox>Applied</Checkbox>}
+									/>
+									<Property
+										label='Brush'
+										value={<Checkbox>Applied</Checkbox>}
+									/>
+									{itemSelected.type === "line" && (
+										<Property
+											label='Dots'
+											value={<Checkbox>Applied</Checkbox>}
+										/>
+									)}
+									{itemSelected.type === "bar" && (
+										<Property
+											label='Border radius'
+											value={
+												<NumberInput size='sm' min={0}>
+													<NumberInputField />
+													<NumberInputStepper>
+														<NumberIncrementStepper />
+														<NumberDecrementStepper />
+													</NumberInputStepper>
+												</NumberInput>
+											}
+										/>
+									)}
+									{/* TODO: add some input level validation for acceptable color strings */}
+									<Property label='Color' value={<Input size='sm' />} />
+								</>
+							)}
 						</PropertyList>
 					</>
 				)}
