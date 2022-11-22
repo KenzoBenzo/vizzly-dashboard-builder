@@ -11,6 +11,33 @@ export const customTheme = extendTheme(
 					},
 				},
 			},
+			Input: {
+				sizes: {
+					xs: {
+						field: {
+							borderRadius: "md",
+						},
+					},
+				},
+			},
+			NumberInput: {
+				sizes: {
+					xs: {
+						field: {
+							borderRadius: "md",
+						},
+					},
+				},
+			},
+			Select: {
+				sizes: {
+					xs: {
+						field: {
+							borderRadius: "md",
+						},
+					},
+				},
+			},
 			NavItem: {
 				baseStyle: {
 					item: {

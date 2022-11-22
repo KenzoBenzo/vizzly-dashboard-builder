@@ -77,7 +77,7 @@ export const EditorSidebar = () => {
 					label='Columns'
 					value={
 						<NumberInput
-							size='sm'
+							size='xs'
 							value={globalColumns}
 							onChange={(e) => setGlobalColumns(parseInt(e))}
 							min={1}
@@ -106,7 +106,7 @@ export const EditorSidebar = () => {
 								label='Title'
 								value={
 									<Input
-										size='sm'
+										size='xs'
 										w='full'
 										value={itemSelected?.title || "Auto-generated ✨"}
 									/>
@@ -115,7 +115,7 @@ export const EditorSidebar = () => {
 							<Property
 								label='Type'
 								value={
-									<Select size='sm' value={itemSelected.type}>
+									<Select size='xs' value={itemSelected.type}>
 										<option value='empty'>Empty</option>
 										<option value='line'>Line Chart</option>
 										<option value='bar'>Bar Chart</option>
@@ -126,7 +126,7 @@ export const EditorSidebar = () => {
 								label='Column span'
 								value={
 									<NumberInput
-										size='sm'
+										size='xs'
 										// @ts-expect-error TODO: coerce column type to number type
 										value={
 											itemSelected?.colSpan == "auto" ||
@@ -150,7 +150,7 @@ export const EditorSidebar = () => {
 										label='Data source'
 										value={
 											<Select
-												size='sm'
+												size='xs'
 												value={itemSelected?.dataSource}
 												isDisabled
 											>
@@ -161,7 +161,7 @@ export const EditorSidebar = () => {
 									<Property
 										label='X axis'
 										value={
-											<Select size='sm' value={itemSelected?.xAxisDataKey}>
+											<Select size='xs' value={itemSelected?.xAxisDataKey}>
 												{Object.keys(dataSet[0])
 													.filter((key) => key !== itemSelected.yAxisDataKey)
 													.map((dataKey) => (
@@ -173,7 +173,7 @@ export const EditorSidebar = () => {
 									<Property
 										label='Y axis'
 										value={
-											<Select size='sm' value={itemSelected?.yAxisDataKey}>
+											<Select size='xs' value={itemSelected?.yAxisDataKey}>
 												{Object.keys(dataSet[0])
 													.filter((key) => key !== itemSelected.xAxisDataKey)
 													.map((dataKey) => (
@@ -212,7 +212,7 @@ export const EditorSidebar = () => {
 										<Property
 											label='Border radius'
 											value={
-												<NumberInput size='sm' min={0}>
+												<NumberInput size='xs' min={0}>
 													<NumberInputField />
 													<NumberInputStepper>
 														<NumberIncrementStepper />
@@ -223,7 +223,7 @@ export const EditorSidebar = () => {
 										/>
 									)}
 									{/* TODO: add some input level validation for acceptable color strings */}
-									<Property label='Color' value={<Input size='sm' />} />
+									<Property label='Color' value={<Input size='xs' />} />
 								</>
 							)}
 						</PropertyList>
