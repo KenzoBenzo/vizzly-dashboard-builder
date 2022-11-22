@@ -175,17 +175,180 @@ export const EditorSidebar = () => {
 									</NumberInput>
 								}
 							/>
-							{itemSelected.type !== "empty" && (
-								<>
+							<>
+								<Property
+									label='Slice data'
+									value={
+										<NumberInput
+											size='xs'
+											value={itemSelected.sliceData}
+											onChange={(e) => {
+												updatedItems[itemIndex].sliceData = parseInt(e);
+												setDashboardItems(updatedItems);
+											}}
+											min={0}
+										>
+											<NumberInputField />
+											<NumberInputStepper>
+												<NumberIncrementStepper />
+												<NumberDecrementStepper />
+											</NumberInputStepper>
+										</NumberInput>
+									}
+								/>
+								<Property
+									label='Data source'
+									value={
+										<Select
+											size='xs'
+											value={itemSelected?.dataSource}
+											isDisabled
+										>
+											<option value='us-sales.json'>us-sales.json</option>
+										</Select>
+									}
+								/>
+								<Property
+									label='X axis'
+									value={
+										<Select
+											size='xs'
+											value={itemSelected?.xAxisDataKey}
+											onChange={(e) => {
+												updatedItems[itemIndex].xAxisDataKey = e.target.value;
+												setDashboardItems(updatedItems);
+											}}
+										>
+											{Object.keys(dataSet[0]).map((dataKey) => (
+												<option
+													key={dataKey}
+													disabled={dataKey == itemSelected.yAxisDataKey}
+												>
+													{dataKey}
+												</option>
+											))}
+										</Select>
+									}
+								/>
+								<Property
+									label='Y axis'
+									value={
+										<Select
+											size='xs'
+											value={itemSelected?.yAxisDataKey}
+											onChange={(e) => {
+												updatedItems[itemIndex].yAxisDataKey = e.target.value;
+												setDashboardItems(updatedItems);
+											}}
+										>
+											{Object.keys(dataSet[0]).map((dataKey) => (
+												<option
+													key={dataKey}
+													disabled={dataKey == itemSelected.xAxisDataKey}
+												>
+													{dataKey}
+												</option>
+											))}
+										</Select>
+									}
+								/>
+								<Text fontWeight='bold' fontSize='sm' mt={8} mb={2}>
+									Chart features
+								</Text>
+
+								<Property
+									label='Cartesian grid'
+									value={
+										<Checkbox
+											isChecked={itemSelected.features?.cartesianGrid}
+											onChange={(e) => {
+												// @ts-expect-error Figure out the conditional props reading here for features
+												updatedItems[itemIndex].features.cartesianGrid =
+													e.target.checked;
+												setDashboardItems(updatedItems);
+											}}
+										>
+											Applied
+										</Checkbox>
+									}
+								/>
+								<Property
+									label='Tooltip'
+									value={
+										<Checkbox
+											isChecked={itemSelected.features?.tooltip}
+											onChange={(e) => {
+												// @ts-expect-error Figure out the conditional props reading here for features
+												updatedItems[itemIndex].features.tooltip =
+													e.target.checked;
+												setDashboardItems(updatedItems);
+											}}
+										>
+											Applied
+										</Checkbox>
+									}
+								/>
+								<Property
+									label='Legend'
+									value={
+										<Checkbox
+											isChecked={itemSelected.features?.legend}
+											onChange={(e) => {
+												// @ts-expect-error Figure out the conditional props reading here for features
+												updatedItems[itemIndex].features.legend =
+													e.target.checked;
+												setDashboardItems(updatedItems);
+											}}
+										>
+											Applied
+										</Checkbox>
+									}
+								/>
+								<Property
+									label='Brush'
+									value={
+										<Checkbox
+											isChecked={itemSelected.features?.brush}
+											onChange={(e) => {
+												// @ts-expect-error Figure out the conditional props reading here for features
+												updatedItems[itemIndex].features.brush =
+													e.target.checked;
+												setDashboardItems(updatedItems);
+											}}
+										>
+											Applied
+										</Checkbox>
+									}
+								/>
+								{itemSelected.type === "line" && (
 									<Property
-										label='Slice data'
+										label='Dots'
+										value={
+											<Checkbox
+												isChecked={itemSelected.features?.dots}
+												onChange={(e) => {
+													// @ts-expect-error Figure out the conditional props reading here for features
+													updatedItems[itemIndex].features.dots =
+														e.target.checked;
+													setDashboardItems(updatedItems);
+												}}
+											>
+												Applied
+											</Checkbox>
+										}
+									/>
+								)}
+								{itemSelected.type === "bar" && (
+									<Property
+										label='Border radius'
 										value={
 											<NumberInput
 												size='xs'
-												value={itemSelected.sliceData}
+												value={itemSelected.features?.borderRadius}
 												onChange={(e) => {
-													// @ts-expect-error Figure out the conditional props reading here for slicedData
-													updatedItems[itemIndex].sliceData = parseInt(e);
+													// @ts-expect-error Figure out the conditional props reading here for features
+													updatedItems[itemIndex].features.borderRadius =
+														parseInt(e);
 													setDashboardItems(updatedItems);
 												}}
 												min={0}
@@ -198,200 +361,32 @@ export const EditorSidebar = () => {
 											</NumberInput>
 										}
 									/>
-									<Property
-										label='Data source'
-										value={
-											<Select
-												size='xs'
-												value={itemSelected?.dataSource}
-												isDisabled
-											>
-												<option value='us-sales.json'>us-sales.json</option>
-											</Select>
-										}
-									/>
-									<Property
-										label='X axis'
-										value={
-											<Select
-												size='xs'
-												value={itemSelected?.xAxisDataKey}
-												onChange={(e) => {
-													// @ts-expect-error Figure out the conditional props reading here for xAxisDataKey
-													updatedItems[itemIndex].xAxisDataKey = e.target.value;
-													setDashboardItems(updatedItems);
-												}}
-											>
-												{Object.keys(dataSet[0]).map((dataKey) => (
-													<option
-														key={dataKey}
-														disabled={dataKey == itemSelected.yAxisDataKey}
-													>
-														{dataKey}
-													</option>
-												))}
-											</Select>
-										}
-									/>
-									<Property
-										label='Y axis'
-										value={
-											<Select
-												size='xs'
-												value={itemSelected?.yAxisDataKey}
-												onChange={(e) => {
-													// @ts-expect-error Figure out the conditional props reading here for yAxisDataKey
-													updatedItems[itemIndex].yAxisDataKey = e.target.value;
-													setDashboardItems(updatedItems);
-												}}
-											>
-												{Object.keys(dataSet[0]).map((dataKey) => (
-													<option
-														key={dataKey}
-														disabled={dataKey == itemSelected.xAxisDataKey}
-													>
-														{dataKey}
-													</option>
-												))}
-											</Select>
-										}
-									/>
-									<Text fontWeight='bold' fontSize='sm' mt={8} mb={2}>
-										Chart features
-									</Text>
-
-									<Property
-										label='Cartesian grid'
-										value={
-											<Checkbox
-												isChecked={itemSelected.features?.cartesianGrid}
-												onChange={(e) => {
-													// @ts-expect-error Figure out the conditional props reading here for features
-													updatedItems[itemIndex].features.cartesianGrid =
-														e.target.checked;
-													setDashboardItems(updatedItems);
-												}}
-											>
-												Applied
-											</Checkbox>
-										}
-									/>
-									<Property
-										label='Tooltip'
-										value={
-											<Checkbox
-												isChecked={itemSelected.features?.tooltip}
-												onChange={(e) => {
-													// @ts-expect-error Figure out the conditional props reading here for features
-													updatedItems[itemIndex].features.tooltip =
-														e.target.checked;
-													setDashboardItems(updatedItems);
-												}}
-											>
-												Applied
-											</Checkbox>
-										}
-									/>
-									<Property
-										label='Legend'
-										value={
-											<Checkbox
-												isChecked={itemSelected.features?.legend}
-												onChange={(e) => {
-													// @ts-expect-error Figure out the conditional props reading here for features
-													updatedItems[itemIndex].features.legend =
-														e.target.checked;
-													setDashboardItems(updatedItems);
-												}}
-											>
-												Applied
-											</Checkbox>
-										}
-									/>
-									<Property
-										label='Brush'
-										value={
-											<Checkbox
-												isChecked={itemSelected.features?.brush}
-												onChange={(e) => {
-													// @ts-expect-error Figure out the conditional props reading here for features
-													updatedItems[itemIndex].features.brush =
-														e.target.checked;
-													setDashboardItems(updatedItems);
-												}}
-											>
-												Applied
-											</Checkbox>
-										}
-									/>
-									{itemSelected.type === "line" && (
-										<Property
-											label='Dots'
-											value={
-												<Checkbox
-													isChecked={itemSelected.features?.dots}
-													onChange={(e) => {
-														// @ts-expect-error Figure out the conditional props reading here for features
-														updatedItems[itemIndex].features.dots =
-															e.target.checked;
-														setDashboardItems(updatedItems);
-													}}
-												>
-													Applied
-												</Checkbox>
-											}
-										/>
-									)}
-									{itemSelected.type === "bar" && (
-										<Property
-											label='Border radius'
-											value={
-												<NumberInput
-													size='xs'
-													value={itemSelected.features?.borderRadius}
-													onChange={(e) => {
-														// @ts-expect-error Figure out the conditional props reading here for features
-														updatedItems[itemIndex].features.borderRadius =
-															parseInt(e);
-														setDashboardItems(updatedItems);
-													}}
-													min={0}
-												>
-													<NumberInputField />
-													<NumberInputStepper>
-														<NumberIncrementStepper />
-														<NumberDecrementStepper />
-													</NumberInputStepper>
-												</NumberInput>
-											}
-										/>
-									)}
-									{/* TODO: add some input level validation for acceptable color strings */}
-									<Property
-										label='Color'
-										value={
-											<InputGroup size='xs'>
-												<InputLeftElement>
-													<Badge
-														bg={itemSelected.features?.color}
-														boxSize='2'
-														borderRadius='full'
-													/>
-												</InputLeftElement>
-												<Input
-													value={itemSelected.features?.color}
-													onChange={(e) => {
-														// @ts-expect-error Figure out the conditional props reading here for features
-														updatedItems[itemIndex].features.color =
-															e.target.value;
-														setDashboardItems(updatedItems);
-													}}
+								)}
+								{/* TODO: add some input level validation for acceptable color strings */}
+								<Property
+									label='Color'
+									value={
+										<InputGroup size='xs'>
+											<InputLeftElement>
+												<Badge
+													bg={itemSelected.features?.color}
+													boxSize='2'
+													borderRadius='full'
 												/>
-											</InputGroup>
-										}
-									/>
-								</>
-							)}
+											</InputLeftElement>
+											<Input
+												value={itemSelected.features?.color}
+												onChange={(e) => {
+													// @ts-expect-error Figure out the conditional props reading here for features
+													updatedItems[itemIndex].features.color =
+														e.target.value;
+													setDashboardItems(updatedItems);
+												}}
+											/>
+										</InputGroup>
+									}
+								/>
+							</>
 						</PropertyList>
 						<Button
 							w='full'
