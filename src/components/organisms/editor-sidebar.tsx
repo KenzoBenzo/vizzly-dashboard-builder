@@ -42,6 +42,12 @@ export const EditorSidebar = () => {
 		dashboardItems,
 		setDashboardItems,
 	} = useEditorContext();
+
+	const itemIndex = dashboardItems.findIndex(
+		(item) => item.id === itemSelected?.id
+	);
+	let updatedItems = [...dashboardItems];
+
 	return (
 		<Sidebar
 			position='sticky'
@@ -118,13 +124,25 @@ export const EditorSidebar = () => {
 										size='xs'
 										w='full'
 										value={itemSelected?.title || "Auto-generated ✨"}
+										onChange={(e) => {
+											updatedItems[itemIndex].title = e.target.value;
+											setDashboardItems(updatedItems);
+										}}
 									/>
 								}
 							/>
 							<Property
 								label='Type'
 								value={
-									<Select size='xs' value={itemSelected.type}>
+									<Select
+										size='xs'
+										value={itemSelected.type}
+										onChange={(e) => {
+											// @ts-ignore options are only defined by these values
+											updatedItems[itemIndex].type = e.target.value;
+											setDashboardItems(updatedItems);
+										}}
+									>
 										<option value='empty'>Empty</option>
 										<option value='line'>Line Chart</option>
 										<option value='bar'>Bar Chart</option>
@@ -143,6 +161,10 @@ export const EditorSidebar = () => {
 												? 1
 												: itemSelected?.colSpan
 										}
+										onChange={(e) => {
+											updatedItems[itemIndex].colSpan = parseInt(e);
+											setDashboardItems(updatedItems);
+										}}
 										min={1}
 									>
 										<NumberInputField />
@@ -161,6 +183,11 @@ export const EditorSidebar = () => {
 											<NumberInput
 												size='xs'
 												value={itemSelected.sliceData}
+												onChange={(e) => {
+													// @ts-expect-error Figure out the conditional props reading here for slicedData
+													updatedItems[itemIndex].sliceData = parseInt(e);
+													setDashboardItems(updatedItems);
+												}}
 												min={0}
 											>
 												<NumberInputField />
@@ -186,7 +213,15 @@ export const EditorSidebar = () => {
 									<Property
 										label='X axis'
 										value={
-											<Select size='xs' value={itemSelected?.xAxisDataKey}>
+											<Select
+												size='xs'
+												value={itemSelected?.xAxisDataKey}
+												onChange={(e) => {
+													// @ts-expect-error Figure out the conditional props reading here for xAxisDataKey
+													updatedItems[itemIndex].xAxisDataKey = e.target.value;
+													setDashboardItems(updatedItems);
+												}}
+											>
 												{Object.keys(dataSet[0]).map((dataKey) => (
 													<option
 														key={dataKey}
@@ -201,7 +236,15 @@ export const EditorSidebar = () => {
 									<Property
 										label='Y axis'
 										value={
-											<Select size='xs' value={itemSelected?.yAxisDataKey}>
+											<Select
+												size='xs'
+												value={itemSelected?.yAxisDataKey}
+												onChange={(e) => {
+													// @ts-expect-error Figure out the conditional props reading here for yAxisDataKey
+													updatedItems[itemIndex].yAxisDataKey = e.target.value;
+													setDashboardItems(updatedItems);
+												}}
+											>
 												{Object.keys(dataSet[0]).map((dataKey) => (
 													<option
 														key={dataKey}
@@ -222,6 +265,12 @@ export const EditorSidebar = () => {
 										value={
 											<Checkbox
 												isChecked={itemSelected.features?.cartesianGrid}
+												onChange={(e) => {
+													// @ts-expect-error Figure out the conditional props reading here for features
+													updatedItems[itemIndex].features.cartesianGrid =
+														e.target.checked;
+													setDashboardItems(updatedItems);
+												}}
 											>
 												Applied
 											</Checkbox>
@@ -230,7 +279,15 @@ export const EditorSidebar = () => {
 									<Property
 										label='Tooltip'
 										value={
-											<Checkbox isChecked={itemSelected.features?.tooltip}>
+											<Checkbox
+												isChecked={itemSelected.features?.tooltip}
+												onChange={(e) => {
+													// @ts-expect-error Figure out the conditional props reading here for features
+													updatedItems[itemIndex].features.tooltip =
+														e.target.checked;
+													setDashboardItems(updatedItems);
+												}}
+											>
 												Applied
 											</Checkbox>
 										}
@@ -238,7 +295,15 @@ export const EditorSidebar = () => {
 									<Property
 										label='Legend'
 										value={
-											<Checkbox isChecked={itemSelected.features?.legend}>
+											<Checkbox
+												isChecked={itemSelected.features?.legend}
+												onChange={(e) => {
+													// @ts-expect-error Figure out the conditional props reading here for features
+													updatedItems[itemIndex].features.legend =
+														e.target.checked;
+													setDashboardItems(updatedItems);
+												}}
+											>
 												Applied
 											</Checkbox>
 										}
@@ -246,7 +311,15 @@ export const EditorSidebar = () => {
 									<Property
 										label='Brush'
 										value={
-											<Checkbox isChecked={itemSelected.features?.brush}>
+											<Checkbox
+												isChecked={itemSelected.features?.brush}
+												onChange={(e) => {
+													// @ts-expect-error Figure out the conditional props reading here for features
+													updatedItems[itemIndex].features.brush =
+														e.target.checked;
+													setDashboardItems(updatedItems);
+												}}
+											>
 												Applied
 											</Checkbox>
 										}
@@ -255,7 +328,15 @@ export const EditorSidebar = () => {
 										<Property
 											label='Dots'
 											value={
-												<Checkbox isChecked={itemSelected.features?.dots}>
+												<Checkbox
+													isChecked={itemSelected.features?.dots}
+													onChange={(e) => {
+														// @ts-expect-error Figure out the conditional props reading here for features
+														updatedItems[itemIndex].features.dots =
+															e.target.checked;
+														setDashboardItems(updatedItems);
+													}}
+												>
 													Applied
 												</Checkbox>
 											}
@@ -268,6 +349,12 @@ export const EditorSidebar = () => {
 												<NumberInput
 													size='xs'
 													value={itemSelected.features?.borderRadius}
+													onChange={(e) => {
+														// @ts-expect-error Figure out the conditional props reading here for features
+														updatedItems[itemIndex].features.borderRadius =
+															parseInt(e);
+														setDashboardItems(updatedItems);
+													}}
 													min={0}
 												>
 													<NumberInputField />
@@ -291,7 +378,15 @@ export const EditorSidebar = () => {
 														borderRadius='full'
 													/>
 												</InputLeftElement>
-												<Input value={itemSelected.features?.color} />
+												<Input
+													value={itemSelected.features?.color}
+													onChange={(e) => {
+														// @ts-expect-error Figure out the conditional props reading here for features
+														updatedItems[itemIndex].features.color =
+															e.target.value;
+														setDashboardItems(updatedItems);
+													}}
+												/>
 											</InputGroup>
 										}
 									/>
