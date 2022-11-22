@@ -58,13 +58,14 @@ export function EditorContextProvider({ children }: { children: ReactNode }) {
 	const [dashboardItems, setDashboardItems] = useState<DashboardItem[]>([
 		{
 			id: 0,
+			title: "Quantity ordered by date",
 			type: "line",
 			colSpan: 2,
 			dataSource: "us-sales.json",
 			data: dataSet,
 			sliceData: 19,
 			xAxisDataKey: "order_date",
-			yAxisDataKey: "value",
+			yAxisDataKey: "qty_ordered",
 			features: {
 				cartesianGrid: true,
 				legend: true,
@@ -76,12 +77,13 @@ export function EditorContextProvider({ children }: { children: ReactNode }) {
 		},
 		{
 			id: 2,
+			title: "Sales value by category",
 			type: "bar",
 			colSpan: 4,
 			dataSource: "us-sales.json",
 			data: dataSet,
 			sliceData: 19,
-			xAxisDataKey: "order_date",
+			xAxisDataKey: "category",
 			yAxisDataKey: "value",
 			features: {
 				cartesianGrid: true,
