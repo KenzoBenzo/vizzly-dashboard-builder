@@ -392,7 +392,6 @@ export const EditorSidebar = () => {
 							w='full'
 							colorScheme='red'
 							variant='subtle'
-							mt={8}
 							onClick={() => {
 								setItemSelected(undefined);
 								setDashboardItems(
