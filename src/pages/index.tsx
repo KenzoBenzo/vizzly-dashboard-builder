@@ -1,4 +1,5 @@
-import { Grid } from "@chakra-ui/react";
+import { Flex, Grid, GridItem as ChakraGridItem } from "@chakra-ui/react";
+import { Divider } from "@saas-ui/react";
 import {
 	LineChart,
 	BarChart,
@@ -21,16 +22,22 @@ export default function Home() {
 						isSelected={item.id == itemSelected?.id}
 						{...item}
 					>
-						{item.type === "empty" ? (
-							<Empty />
-						) : item.type === "line" ? (
+						{item.type === "line" ? (
 							<LineChart {...item} />
 						) : item.type === "bar" ? (
 							<BarChart {...item} />
 						) : null}
 					</GridItem>
 				))}
+				{/* <ChakraGridItem colSpan={1}>
+					<Empty />
+				</ChakraGridItem> */}
 			</Grid>
+			<Flex justify='center' align='center'>
+				<Divider />
+				<Empty />
+				<Divider />
+			</Flex>
 		</>
 	);
 }

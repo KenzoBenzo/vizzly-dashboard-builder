@@ -9,35 +9,26 @@ import {
 } from "react";
 const dataSet = require("../../../public/us-sales.json");
 
-interface CommonProps {
+interface DashboardItem {
 	id: number;
 	colSpan?: ResponsiveValue<number | "auto"> | undefined;
 	title?: string;
+	type: "line" | "bar";
+	xAxisDataKey: string;
+	yAxisDataKey: string;
+	dataSource: string;
+	data: any[];
+	sliceData?: number;
+	features?: {
+		cartesianGrid?: boolean;
+		legend?: boolean;
+		tooltip?: boolean;
+		dots?: boolean;
+		borderRadius?: number;
+		color?: string;
+		brush?: boolean;
+	};
 }
-
-type ConditionalProps =
-	| {
-			type: "line" | "bar";
-			xAxisDataKey: string;
-			yAxisDataKey: string;
-			dataSource: string;
-			data: any[];
-			sliceData?: number;
-			features?: {
-				cartesianGrid?: boolean;
-				legend?: boolean;
-				tooltip?: boolean;
-				dots?: boolean;
-				borderRadius?: number;
-				color?: string;
-				brush?: boolean;
-			};
-	  }
-	| {
-			type: "empty";
-	  };
-
-export type DashboardItem = CommonProps & ConditionalProps;
 
 export interface EditorContextType {
 	itemSelected: DashboardItem | undefined;
@@ -83,7 +74,6 @@ export function EditorContextProvider({ children }: { children: ReactNode }) {
 				color: primary500,
 			},
 		},
-		{ id: 1, type: "empty", colSpan: 2 },
 		{
 			id: 2,
 			type: "bar",
@@ -102,7 +92,6 @@ export function EditorContextProvider({ children }: { children: ReactNode }) {
 				color: primary500,
 			},
 		},
-		{ id: 3, type: "empty" },
 	]);
 
 	const providerValue: EditorContextType = {
